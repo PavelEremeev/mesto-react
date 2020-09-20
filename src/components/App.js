@@ -5,11 +5,48 @@ import Main from "./Main";
 import Footer from "./Footer";
 
 function App() {
+  // Хуки-состояния
+  const [isProfileOpen, setIsProfileOpen] = React.useState(false);
+  const [isAvatarOpen, setIsAvatarOpen] = React.useState(false);
+  const [isNewPlaceOpen, setIsNewPlaceOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({
+    isOpen: true,
+    link: "",
+    name: "",
+  });
+
+  // Функции открытия попапов
+  function handleEditProfileClick() {
+    setIsProfileOpen(true);
+  }
+  function handleAddPlaceClick() {
+    setIsNewPlaceOpen(true);
+  }
+  function handleEditAvatarClick() {
+    setIsAvatarOpen(true);
+  }
+  function handleCardClick() {
+    setSelectedCard({
+      isOpen: false,
+      link: props.link,
+      name: props.name,
+    });
+  }
+
   return (
     <div className="page">
       <>
         <Header />
-        <Main />
+        <Main
+          onClickAvatar={handleEditAvatarClick}
+          onClickProfile={handleEditProfileClick}
+          onClickNewPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
+          profileIsOpen={isProfileOpen}
+          avatarIsOpen={isAvatarOpen}
+          newPlaceIsOpen={isNewPlaceOpen}
+          card={selectedCard}
+        />
         <Footer />
       </>
       <div className="popup">
