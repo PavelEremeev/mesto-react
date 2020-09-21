@@ -2,7 +2,9 @@ import React from "react";
 import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
+import Card from "./Card";
 import Footer from "./Footer";
+import PopupWithForm from "./PopupWithForm";
 
 function App() {
   // Хуки-состояния
@@ -25,7 +27,7 @@ function App() {
   function handleEditAvatarClick() {
     setIsAvatarOpen(true);
   }
-  function handleCardClick() {
+  function handleCardClick(props) {
     setSelectedCard({
       isOpen: false,
       link: props.link,
@@ -35,20 +37,20 @@ function App() {
 
   return (
     <div className="page">
-      <>
-        <Header />
-        <Main
-          onClickAvatar={handleEditAvatarClick}
-          onClickProfile={handleEditProfileClick}
-          onClickNewPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          profileIsOpen={isProfileOpen}
-          avatarIsOpen={isAvatarOpen}
-          newPlaceIsOpen={isNewPlaceOpen}
-          card={selectedCard}
-        />
-        <Footer />
-      </>
+      <Header />
+      <Main
+        onClickAvatar={handleEditAvatarClick}
+        onClickProfile={handleEditProfileClick}
+        onClickNewPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
+        profileIsOpen={isProfileOpen}
+        avatarIsOpen={isAvatarOpen}
+        newPlaceIsOpen={isNewPlaceOpen}
+        card={selectedCard}
+      />
+      <Card />
+      <PopupWithForm avatarIsOpen={isAvatarOpen} />
+      <Footer />
       <div className="popup">
         <form className="popup__form" noValidate>
           <button className="popup__close-button" type="button"></button>
@@ -135,27 +137,6 @@ function App() {
             Да
           </button>
         </div>
-      </div>
-      <div className="popup_avatar popup">
-        <form className="popup__form_avatar popup__form" noValidate>
-          <button className="popup__close-button" type="button"></button>
-          <h2 className="popup__text popup__text_avatar">Обновить аватар</h2>
-          <input
-            className="popup__input popup__input_avatar"
-            id="avatar-link-input"
-            name="avatar"
-            type="url"
-            placeholder="Ссылка на аватар"
-            required
-          />
-          <span
-            className="popup__input-error"
-            id="avatar-link-input-error"
-          ></span>
-          <button className="popup__submit-button" type="submit">
-            Сохранить
-          </button>
-        </form>
       </div>
     </div>
   );
