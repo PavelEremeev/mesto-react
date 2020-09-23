@@ -2,9 +2,14 @@ import React from "react";
 import "../index.css";
 
 function Footer() {
+  function getFullYear() {
+    const newYear = new Date().getFullYear();
+    return newYear;
+  }
+
   return (
     <footer className="footer">
-      <p className="footer__copyright">&copy;2020. Mesto Russia</p>
+      <p className="footer__copyright">&copy;{getFullYear()} Mesto Russia</p>
     </footer>
   );
 }

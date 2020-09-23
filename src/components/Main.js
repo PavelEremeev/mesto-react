@@ -16,10 +16,18 @@ function Main(props) {
                 <h1 className="profile__text">Загрузка...</h1>
                 <p className="profile__subtext">Загрузка...</p>
               </div>
-              <button type="button" className="profile__edit-button"></button>
+              <button
+                type="button"
+                className="profile__edit-button"
+                onClick={props.onClickProfile}
+              ></button>
             </div>
           </div>
-          <button type="button" className="profile__add-button"></button>
+          <button
+            type="button"
+            className="profile__add-button"
+            onClick={props.onClickNewPlace}
+          ></button>
         </section>
       </div>
     </main>
