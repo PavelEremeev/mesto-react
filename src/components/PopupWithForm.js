@@ -5,16 +5,26 @@ import "../index.css";
 export default function PopupWithForm({
   onClick,
   isOpen,
-  popupClassName,
+  name,
+  formElement,
   children,
+  title,
   ...rest
 }) {
   return (
-    <div
-      className={`popup ${popupClassName} ${isOpen ? `popup_opened` : ""}`}
-      {...rest}
-    >
-      {children}
+    <div className={`popup ${name} ${isOpen ? `popup_opened` : ""}`} {...rest}>
+      <form className={`${formElement} popup__form`} noValidate>
+        <button
+          className="popup__close-button"
+          type="button"
+          onClick={onClick}
+        ></button>
+        <h2 className="popup__text">{title}</h2>
+        {children}
+        <button className="popup__submit-button" type="submit">
+          Сохранить
+        </button>
+      </form>
     </div>
   );
 }

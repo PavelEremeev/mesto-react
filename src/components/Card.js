@@ -1,23 +1,23 @@
 import React from "react";
 import "../index.css";
 
-function Card(props) {
+function Card({ onClick, card, ...rest }) {
   return (
-    <section className="elements">
-      <template className="element__template">
-        <div className="element">
-          <img className="element__image" />
-          <div className="element__item">
-            <h3 className="element__text"></h3>
-            <div className="element__like-container">
-              <button type="button" className="element__like-button"></button>
-              <h4 className="element__like-counter"></h4>
-            </div>
-            <button type="button" className="element__remove-button"></button>
-          </div>
+    <div className="element" {...rest}>
+      <img className="element__image" src={card && card.link} />
+      <div className="element__item">
+        <h3 className="element__text">{card && card.name}</h3>
+        <div className="element__like-container">
+          <button type="button" className="element__like-button"></button>
+          <h4 className="element__like-counter">{card && card.likes.length}</h4>
         </div>
-      </template>
-    </section>
+        <button
+          type="button"
+          className="element__remove-button"
+          onClick={onClick}
+        ></button>
+      </div>
+    </div>
   );
 }
 
