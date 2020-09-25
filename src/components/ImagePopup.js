@@ -1,17 +1,18 @@
 import React from "react";
 import "../index.css";
 
-export default function ImagePopup() {
-  return (
-    <div className="popup_zoom popup">
-      <div className="popup__container">
-        <img className="popup__image" />
-        <button
-          type="button"
-          className="popup__close-button_zoom popup__close-button"
-        ></button>
-        <p className="popup__caption"></p>
-      </div>
-    </div>
-  );
+export default function ImagePopup({ isOpen, card, onClose }) {
+    return (
+        <div className={`popup popup_zoom ${isOpen ? `popup_opened` : ""}`}>
+            <div className="popup__container">
+                <img className="popup__image" src={card && card.link} />
+                <button
+                    type="button"
+                    className="popup__close-button_zoom popup__close-button"
+                    onClick={onClose}
+                ></button>
+                <p className="popup__caption">{card && card.name}</p>
+            </div>
+        </div>
+    );
 }

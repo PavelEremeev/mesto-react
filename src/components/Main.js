@@ -2,12 +2,12 @@ import React from "react";
 import "../index.css";
 import api from "../utils/Api.js";
 import Card from "./Card";
-import App from "./App";
+
 function Main(props) {
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
-  const [cards, setCards] = React.useState();
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     Promise.all([api.getUserInfo(), api.getItems()])
@@ -53,7 +53,7 @@ function Main(props) {
         <section className="elements">
           {/* <template className="element__template"> */}
           {cards.map((card) => (
-            <Card {...card} />
+            <Card card={card} key={card._id} onClick={props.onCardClick} />
           ))}
           {/* </template> */}
         </section>

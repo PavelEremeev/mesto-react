@@ -13,7 +13,7 @@ function App() {
   const [onEditAvatar, setonEditAvatar] = React.useState(false);
   const [onAddNewPlace, setonAddNewPlace] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({
-    isOpen: true,
+    isOpen: false,
     link: "",
     name: "",
   });
@@ -30,21 +30,21 @@ function App() {
   }
   function handleCardClick(props) {
     setSelectedCard({
-      isOpen: false,
+      isOpen: true,
       link: props.link,
       name: props.name,
     });
   }
 
   // Функция закрытия попапов
-  function handleClosePopups(props) {
+  function handleClosePopups() {
     setonEditAvatar(false);
     setonAddNewPlace(false);
     setonEditProfile(false);
     setSelectedCard({
       isOpen: false,
-      link: props.link,
-      name: props.name,
+      link: "",
+      name: "",
     });
   }
 
@@ -175,7 +175,7 @@ function App() {
           </>
         }
       /> */}
-      <ImagePopup />
+      <ImagePopup isOpen={selectedCard.isOpen} card={selectedCard} onClose={handleClosePopups} />
       <Footer />
     </div>
   );
