@@ -9,9 +9,9 @@ import ImagePopup from "./ImagePopup";
 
 function App() {
   // Хуки-состояния
-  const [onEditProfile, setonEditProfile] = React.useState(false);
-  const [onEditAvatar, setonEditAvatar] = React.useState(false);
-  const [onAddNewPlace, setonAddNewPlace] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({
     isOpen: false,
     link: "",
@@ -20,13 +20,13 @@ function App() {
 
   // Функции открытия попапов
   function handleEditProfileClick() {
-    setonEditProfile(true);
+    setIsEditProfilePopupOpen(true);
   }
   function handleAddPlaceClick() {
-    setonAddNewPlace(true);
+    setIsAddPlacePopupOpen(true);
   }
   function handleEditAvatarClick() {
-    setonEditAvatar(true);
+    setIsEditAvatarPopupOpen(true);
   }
   function handleCardClick(props) {
     setSelectedCard({
@@ -38,9 +38,9 @@ function App() {
 
   // Функция закрытия попапов
   function handleClosePopups() {
-    setonEditAvatar(false);
-    setonAddNewPlace(false);
-    setonEditProfile(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditProfilePopupOpen(false);
     setSelectedCard({
       isOpen: false,
       link: "",
@@ -56,14 +56,14 @@ function App() {
         onClickProfile={handleEditProfileClick}
         onClickNewPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
-        profileIsOpen={onEditProfile}
-        avatarIsOpen={onEditAvatar}
-        newPlaceIsOpen={onAddNewPlace}
+        profileIsOpen={isEditProfilePopupOpen}
+        avatarIsOpen={isEditAvatarPopupOpen}
+        newPlaceIsOpen={isAddPlacePopupOpen}
         card={selectedCard}
       />
       <PopupWithForm
         name="popup_avatar"
-        isOpen={onEditAvatar}
+        isOpen={isEditAvatarPopupOpen}
         onClick={handleClosePopups}
         title="Обновить аватар"
         formElement="popup__form_avatar"
@@ -86,7 +86,7 @@ function App() {
       />
       <PopupWithForm
         name=""
-        isOpen={onEditProfile}
+        isOpen={isEditProfilePopupOpen}
         onClick={handleClosePopups}
         title="Редактировать профиль"
         formElement=""
@@ -121,7 +121,7 @@ function App() {
       />
       <PopupWithForm
         name="popup_new-place"
-        isOpen={onAddNewPlace}
+        isOpen={isAddPlacePopupOpen}
         onClick={handleClosePopups}
         title="Создать mesto"
         formElement="popup__form_new-place"
