@@ -1,25 +1,12 @@
 import React from "react";
-import "../index.css";
-import api from "../utils/Api.js";
 import Card from "./Card";
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import { CurrentCardsContext } from '../contexts/CurrentСardsContext'
 
 function Main(props) {
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
-  const [cards, setCards] = React.useState([]);
 
-  React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getItems()])
-      .then(([userInfo, initialCards]) => {
-        setUserName(userInfo.name);
-        setUserDescription(userInfo.about);
-        setUserAvatar(userInfo.avatar);
-        setCards(initialCards);
-        console.log(initialCards);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const currentUser = React.useContext(CurrentUserContext);
+  const currentCards = React.useContext(CurrentCardsContext);
 
   return (
     <main>
@@ -30,12 +17,12 @@ function Main(props) {
               className="profile__avatar"
               type="button"
               onClick={props.onClickAvatar}
-              style={{ backgroundImage: `url(${userAvatar})` }}
+              style={{ backgroundImage: `url(${currentUser.avatar})` }}
             ></button>
             <div className="profile__author-card">
               <div className="profile__text-container">
-                <h1 className="profile__text">{userName}</h1>
-                <p className="profile__subtext">{userDescription}</p>
+                <h1 className="profile__text">{currentUser.name}</h1>
+                <p className="profile__subtext">{currentUser.about}</p>
               </div>
               <button
                 type="button"
@@ -51,11 +38,15 @@ function Main(props) {
           ></button>
         </section>
         <section className="elements">
-          {/* <template className="element__template"> */}
-          {cards.map((card) => (
-            <Card card={card} key={card._id} onClick={props.onCardClick} />
+          {currentCards.map((card) => (
+            <Card card={card}
+              key={card._id}
+              onClick={props.onCardClick}
+              onDeleteClick={props.onDeleteClick}
+              onCardLike={props.onCardLike}
+              onCardDislike={props.onCardDislike}
+            />
           ))}
-          {/* </template> */}
         </section>
       </div>
     </main>

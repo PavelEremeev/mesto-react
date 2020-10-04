@@ -64,11 +64,23 @@ class Api {
     });
   }
 
-  rateItem(cardId, isLiked) {
-    let methodValue;
-    isLiked ? (methodValue = "DELETE") : (methodValue = "PUT");
+  // rateItem(cardId, isLiked) {
+  //   let methodValue;
+  //   isLiked ? (methodValue = "DELETE") : (methodValue = "PUT");
+  //   return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+  //     method: methodValue,
+  //     headers: this._headers,
+  //   }).then((res) => {
+  //     if (res.ok) {
+  //       return res.json();
+  //     }
+  //     return Promise.reject(`Ошибка при добавлении лайка :( ${res.status}`);
+  //   });
+  // }
+
+  putLike(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: methodValue,
+      method: "PUT",
       headers: this._headers,
     }).then((res) => {
       if (res.ok) {
@@ -78,29 +90,17 @@ class Api {
     });
   }
 
-  //   putLike(cardId) {
-  //     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-  //       method: "PUT",
-  //       headers: this._headers,
-  //     }).then((res) => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-  //       return Promise.reject(`Ошибка при добавлении лайка :( ${res.status}`);
-  //     });
-  //   }
-
-  //   deleteLike(cardId) {
-  //     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-  //       method: "DELETE",
-  //       headers: this._headers,
-  //     }).then((res) => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-  //       return Promise.reject(`Ошибка при удалении лайка :( ${res.status}`);
-  //     });
-  //   }
+  deleteLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка при удалении лайка :( ${res.status}`);
+    });
+  }
 
   createItem(item) {
     return fetch(`${this._baseUrl}/cards`, {
