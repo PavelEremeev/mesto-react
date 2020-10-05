@@ -8,6 +8,8 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext"
 import { CurrentCardsContext } from "../contexts/CurrentСardsContext"
+import AddPlacePopup from "./AddPlacePopup";
+import EditProfilePopup from "./EditProiflePopup";
 
 
 function App() {
@@ -27,7 +29,7 @@ function App() {
       .then(([userInfo, initialCards]) => {
         setCurrentUser(userInfo);
         setCurrentCards(initialCards);
-        console.log(initialCards);
+        console.log(userInfo);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -79,7 +81,7 @@ function App() {
 
 
 
-  // Функция закрытия попапов
+  // Хендлер закрытия попапов
   function handleClosePopups() {
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -89,6 +91,23 @@ function App() {
       link: "",
       name: "",
     });
+  }
+
+  // Хендлеры cабмитов попапов
+
+  function handleAppPlaceSubmit(card) {
+    api.createItem(card)
+      .then((card) => {
+        setCurrentCards([...currentCards, card]);
+      }).catch(err => console.log(err))
+  }
+
+  function handleUpdateUser(userInfo) {
+    api.updateUserInfo(userInfo)
+      .then((userInfo) => {
+        setCurrentUser(userInfo)
+        handleClosePopups()
+      }).catch(err => console.log(err))
   }
 
   return (
@@ -132,77 +151,15 @@ function App() {
               </>
             }
           />
-          <PopupWithForm
-            name=""
+          <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={handleClosePopups}
-            title="Редактировать профиль"
-            formElement=""
-            children={
-              <>
-                <input
-                  className="popup__input popup__input_name"
-                  pattern="[a-zA-ZА-ЯЁа-яё\s\-]+[^\s\-]+"
-                  id="name-input"
-                  type="text"
-                  name="name"
-                  placeholder="Имя"
-                  required
-                  minLength="2"
-                  maxLength="40"
-                />
-                <span className="popup__input-error" id="name-input-error"></span>
-                <input
-                  className="popup__input popup__input_job"
-                  id="job-input"
-                  type="text"
-                  name="about"
-                  pattern="[a-zA-ZА-ЯЁа-яё\s\-]+[^\s\-]+"
-                  placeholder="Профессия"
-                  required
-                  minLength="2"
-                  maxLength="200"
-                />
-                <span className="popup__input-error" id="job-input-error"></span>
-              </>
-            }
+            onUpdateUser={handleUpdateUser}
           />
-          <PopupWithForm
-            name="popup_new-place"
+          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={handleClosePopups}
-            title="Создать mesto"
-            formElement="popup__form_new-place"
-            children={
-              <>
-                <input
-                  className="popup__input popup__input_new-place_name"
-                  id="newplace-name-input"
-                  name="name"
-                  type="text"
-                  placeholder="Название"
-                  required
-                  minLength="1"
-                  maxLength="30"
-                />
-                <span
-                  className="popup__input-error"
-                  id="newplace-name-input-error"
-                ></span>
-                <input
-                  className="popup__input popup__input_new-place_link"
-                  id="newplace-link-input"
-                  name="link"
-                  type="url"
-                  placeholder="Ссылка на картинку"
-                  required
-                />
-                <span
-                  className="popup__input-error"
-                  id="newplace-link-input-error"
-                ></span>
-              </>
-            }
+            onAddPlace={handleAppPlaceSubmit}
           />
           {/* <PopupWithForm
         popupClassName="popup_confirm"

@@ -12,7 +12,8 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             name: inputName.current.value,
             link: inputLink.current.value
         })
-        console.log(data)
+        e.target.reset()
+        console.log(onAddPlace)
     }
 
     return (
@@ -22,35 +23,36 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             onClose={onClose}
             onSubmit={handleSubmit}
             title="Создать mesto"
-            formElement="popup__form_new-place">
-            <>
-                <input
-                    className="popup__input popup__input_new-place_name"
-                    id="newplace-name-input"
-                    name="name"
-                    type="text"
-                    placeholder="Название"
-                    required
-                    minLength="1"
-                    maxLength="30"
-                />
-                <span
-                    className="popup__input-error"
-                    id="newplace-name-input-error"
-                ></span>
-                <input
-                    className="popup__input popup__input_new-place_link"
-                    id="newplace-link-input"
-                    name="link"
-                    type="url"
-                    placeholder="Ссылка на картинку"
-                    required
-                />
-                <span
-                    className="popup__input-error"
-                    id="newplace-link-input-error"
-                ></span>
-            </>
+            formElement="popup__form_new-place"
+        ><input
+                ref={inputName}
+                className="popup__input popup__input_new-place_name"
+                id="newplace-name-input"
+                name="name"
+                type="text"
+                placeholder="Название"
+                required
+                minLength="1"
+                maxLength="30"
+
+            />
+            <span
+                className="popup__input-error"
+                id="newplace-name-input-error"
+            ></span>
+            <input
+                ref={inputLink}
+                className="popup__input popup__input_new-place_link"
+                id="newplace-link-input"
+                name="link"
+                type="url"
+                placeholder="Ссылка на картинку"
+                required
+            />
+            <span
+                className="popup__input-error"
+                id="newplace-link-input-error"
+            ></span>
         </PopupWithForm>
     )
 }
