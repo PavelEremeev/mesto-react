@@ -3,8 +3,9 @@ import PopupWithForm from "./PopupWithForm";
 
 
 export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-    const inputName = React.useRef('')
-    const inputLink = React.useRef('')
+    const inputName = React.useRef('');
+    const inputLink = React.useRef('');
+
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -12,8 +13,8 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             name: inputName.current.value,
             link: inputLink.current.value
         })
-        e.target.reset()
-        console.log(onAddPlace)
+        inputName.current.value = null;
+        inputLink.current.value = null;
     }
 
     return (
@@ -24,6 +25,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             onSubmit={handleSubmit}
             title="Создать mesto"
             formElement="popup__form_new-place"
+            submitTitle="Создать mesto"
         ><input
                 ref={inputName}
                 className="popup__input popup__input_new-place_name"

@@ -38,6 +38,8 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
             onSubmit={handleSubmit}
             title="Редактировать профиль"
             formElement=""
+            submitTitle="Сохранить"
+
         >
             <input
                 className="popup__input popup__input_name"
@@ -50,6 +52,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 minLength="2"
                 maxLength="40"
                 onChange={handleNameUpdate}
+                value={name}
             />
             <span className="popup__input-error" id="name-input-error"></span>
             <input
@@ -63,6 +66,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 minLength="2"
                 maxLength="200"
                 onChange={handleAboutUpdate}
+                value={about}
             />
             <span className="popup__input-error" id="job-input-error"></span>
         </PopupWithForm>

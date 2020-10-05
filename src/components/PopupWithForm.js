@@ -8,12 +8,14 @@ export default function PopupWithForm({
   name,
   formElement,
   title,
-  children
+  children,
+  submitTitle,
+  ...rest
 }) {
 
   return (
     <div className={`popup ${name} ${isOpen ? `popup_opened` : ""}`}>
-      <form onSubmit={onSubmit} className={`${formElement} popup__form`} noValidate>
+      <form {...rest} onSubmit={onSubmit} className={`${formElement} popup__form`} noValidate>
         <button
           className="popup__close-button"
           type="button"
@@ -22,7 +24,7 @@ export default function PopupWithForm({
         <h2 className="popup__text">{title}</h2>
         {children}
         <button className="popup__submit-button" type="submit">
-          Сохранить
+          {submitTitle}
         </button>
       </form>
     </div>

@@ -19,6 +19,7 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
             onSubmit={handleSubmit}
             title="Обновить аватар"
             formElement="popup__form_avatar"
+            submitTitle="Сохранить"
             children={
                 <>
                     <input

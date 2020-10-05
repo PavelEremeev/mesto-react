@@ -8,7 +8,7 @@ import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext"
 import { CurrentCardsContext } from "../contexts/CurrentСardsContext"
 import AddPlacePopup from "./AddPlacePopup";
-import EditProfilePopup from "./EditProiflePopup";
+import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 
 
@@ -97,7 +97,7 @@ function App() {
   function handleAppPlaceSubmit(card) {
     api.createItem(card)
       .then((card) => {
-        setCurrentCards([...currentCards, card]);
+        setCurrentCards([card, ...currentCards]);
         handleClosePopups()
       }).catch(err => console.log(err))
   }
