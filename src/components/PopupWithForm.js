@@ -1,28 +1,30 @@
-import React, { Children } from "react";
-import App from "./App";
-import "../index.css";
+import React from "react";
+
 
 export default function PopupWithForm({
-  onClick,
+  onClose,
   isOpen,
+  onSubmit,
   name,
   formElement,
-  children,
   title,
+  children,
+  submitTitle,
   ...rest
 }) {
+
   return (
-    <div className={`popup ${name} ${isOpen ? `popup_opened` : ""}`} {...rest}>
-      <form className={`${formElement} popup__form`} noValidate>
+    <div className={`popup ${name} ${isOpen ? `popup_opened` : ""}`}>
+      <form {...rest} onSubmit={onSubmit} className={`${formElement} popup__form`} noValidate>
         <button
           className="popup__close-button"
           type="button"
-          onClick={onClick}
+          onClick={onClose}
         ></button>
         <h2 className="popup__text">{title}</h2>
         {children}
         <button className="popup__submit-button" type="submit">
-          Сохранить
+          {submitTitle}
         </button>
       </form>
     </div>
