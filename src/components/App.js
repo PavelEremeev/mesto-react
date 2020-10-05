@@ -55,7 +55,7 @@ function App() {
 
   // Хендлеры карточки 
   function handleDeleteClick(card) {
-    api.deleteItem(card._id)
+    api.deleteItem(card)
       .then(() => {
         const newCardList = currentCards.filter(item => item._id !== card._id);
         setCurrentCards(newCardList);
