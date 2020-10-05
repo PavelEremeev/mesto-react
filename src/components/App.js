@@ -4,12 +4,12 @@ import Header from "./Header";
 import api from "../utils/Api.js";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext"
 import { CurrentCardsContext } from "../contexts/CurrentСardsContext"
 import AddPlacePopup from "./AddPlacePopup";
 import EditProfilePopup from "./EditProiflePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 
 function App() {
@@ -29,7 +29,6 @@ function App() {
       .then(([userInfo, initialCards]) => {
         setCurrentUser(userInfo);
         setCurrentCards(initialCards);
-        console.log(userInfo);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -99,11 +98,20 @@ function App() {
     api.createItem(card)
       .then((card) => {
         setCurrentCards([...currentCards, card]);
+        handleClosePopups()
       }).catch(err => console.log(err))
   }
 
   function handleUpdateUser(userInfo) {
     api.updateUserInfo(userInfo)
+      .then((userInfo) => {
+        setCurrentUser(userInfo)
+        handleClosePopups()
+      }).catch(err => console.log(err))
+  }
+
+  function handleUpdateAvatar(userInfo) {
+    api.updateUserImage(userInfo)
       .then((userInfo) => {
         setCurrentUser(userInfo)
         handleClosePopups()
@@ -120,7 +128,7 @@ function App() {
             onClickProfile={handleEditProfileClick}
             onClickNewPlace={handleAddPlaceClick}
             onCardClick={handleCardClick}
-            onDeleteClick={handleDeleteClick}
+            onCardDelete={handleDeleteClick}
             onCardLike={handleLikeClick}
             onCardDislike={handleDislikeClick}
             profileIsOpen={isEditProfilePopupOpen}
@@ -128,28 +136,10 @@ function App() {
             newPlaceIsOpen={isAddPlacePopupOpen}
             card={selectedCard}
           />
-          <PopupWithForm
-            name="popup_avatar"
+          <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={handleClosePopups}
-            title="Обновить аватар"
-            formElement="popup__form_avatar"
-            children={
-              <>
-                <input
-                  className="popup__input popup__input_avatar"
-                  id="avatar-link-input"
-                  name="avatar"
-                  type="url"
-                  placeholder="Ссылка на аватар"
-                  required
-                />
-                <span
-                  className="popup__input-error"
-                  id="avatar-link-input-error"
-                ></span>
-              </>
-            }
+            onUpdateAvatar={handleUpdateAvatar}
           />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
