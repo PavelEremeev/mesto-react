@@ -1,3 +1,11 @@
+const handleResponse = res => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Что-то пошло не так! :( ${res.status}`);
+}
+
+
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -7,12 +15,7 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так! :( ${res.status}`);
-    });
+    }).then(handleResponse);
   }
 
   updateUserInfo(formData) {
@@ -20,12 +23,7 @@ class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify(formData),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так! :( ${res.status}`);
-    });
+    }).then(handleResponse);
   }
 
   updateUserImage(formData) {
@@ -33,35 +31,20 @@ class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify(formData),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так! :( ${res.status}`);
-    });
+    }).then(handleResponse);
   }
 
   getItems() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так! :( ${res.status}`);
-    });
+    }).then(handleResponse);
   }
 
   deleteItem(item) {
     return fetch(`${this._baseUrl}/cards/${item._id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так! :( ${res.status}`);
-    });
+    }).then(handleResponse);
   }
 
   // rateItem(cardId, isLiked) {
@@ -82,24 +65,14 @@ class Api {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка при добавлении лайка :( ${res.status}`);
-    });
+    }).then(handleResponse);
   }
 
   deleteLike(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка при удалении лайка :( ${res.status}`);
-    });
+    }).then(handleResponse);
   }
 
   createItem(item) {
@@ -107,12 +80,7 @@ class Api {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify(item),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так! :( ${res.status}`);
-    });
+    }).then(handleResponse);
   }
 }
 
